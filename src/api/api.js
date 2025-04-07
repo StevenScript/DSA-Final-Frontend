@@ -1,0 +1,13 @@
+import axios from "axios";
+
+const BASE_URL = process.env.REACT_APP_API_URL || "http://localhost:8080/api";
+
+export async function createTree(numbers) {
+  const response = await axios.post(`${BASE_URL}/trees`, { numbers });
+  return response.data; // returns a TreeRecord object
+}
+
+export async function fetchAllTrees() {
+  const response = await axios.get(`${BASE_URL}/trees`);
+  return response.data; // returns an array of TreeRecords
+}
