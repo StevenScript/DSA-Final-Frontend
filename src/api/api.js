@@ -7,7 +7,7 @@ export async function createTree(numbers) {
   return response.data; // returns a TreeRecord object
 }
 
-export async function fetchAllTrees() {
+export async function fetchUnbalancedTrees() {
   const response = await axios.get(`${BASE_URL}/trees`);
   return response.data; // returns an array of TreeRecords
 }

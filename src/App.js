@@ -1,32 +1,58 @@
 import "./App.css";
-import React, { useState, useEffect } from "react";
-import EnterNumbersForm from "./components/EnterNumbersForm";
-import DisplayTrees from "./components/DisplayTrees";
-import { createTree, fetchAllTrees } from "./api/api";
+import React, { useEffect, useState } from "react";
+import EnterNumbersForm from "./components/EnterNumbersForm"; // already exists from before
+import DisplayUnbalancedTrees from "./components/DisplayUnbalancedTrees";
+import BalanceForm from "./components/BalanceForm";
+import DisplayBalancedTrees from "./components/DisplayBalancedTrees";
+import {
+  createTree,
+  fetchUnbalancedTrees,
+  balanceTree,
+  fetchBalancedTrees,
+} from "./api/api";
 
 function App() {
-  const [trees, setTrees] = useState([]);
+  const [unbalancedTrees, setUnbalancedTrees] = useState([]);
+  const [balancedTrees, setBalancedTrees] = useState([]);
 
+  // Load unbalanced and balanced trees on mount
   useEffect(() => {
-    // On first load, fetch all existing trees
-    fetchAllTrees().then((data) => setTrees(data));
+    fetchUnbalancedTrees().then((data) => setUnbalancedTrees(data));
+    fetchBalancedTrees().then((data) => setBalancedTrees(data));
   }, []);
 
+  // Handle new unbalanced BST creation
   const handleCreateTree = async (numbers) => {
+    const newTree = await createTree(numbers);
+    // Add to the front of unbalanced trees
+    setUnbalancedTrees((prev) => [newTree, ...prev]);
+  };
+
+  // Handle balancing an existing BST given its ID
+  const handleBalanceBST = async (treeId) => {
     try {
-      const newTree = await createTree(numbers);
-      // Add the new tree to our local state
-      setTrees((prevTrees) => [newTree, ...prevTrees]);
+      const newBalancedTree = await balanceTree(treeId);
+      // Add to the balanced trees list
+      setBalancedTrees((prev) => [newBalancedTree, ...prev]);
     } catch (error) {
-      console.error("Error creating tree:", error);
+      console.error("Error balancing tree:", error);
     }
   };
 
   return (
     <div>
       <h1>Binary Search Tree App</h1>
+      {/* Form to create a new unbalanced BST */}
       <EnterNumbersForm onSubmitNumbers={handleCreateTree} />
-      <DisplayTrees trees={trees} />
+
+      {/* Display all unbalanced BSTs */}
+      <DisplayUnbalancedTrees trees={unbalancedTrees} />
+
+      {/* Form to balance a selected BST */}
+      <BalanceForm onBalance={handleBalanceBST} />
+
+      {/* Display all balanced BSTs */}
+      <DisplayBalancedTrees balancedTrees={balancedTrees} />
     </div>
   );
 }

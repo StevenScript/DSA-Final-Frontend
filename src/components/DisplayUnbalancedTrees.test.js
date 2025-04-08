@@ -16,7 +16,7 @@ test("renders a list of unbalanced trees with IDs and numbers", () => {
 
   render(<DisplayUnbalancedTrees trees={mockTrees} />);
 
-  // Instead of matching the entire text, we search for the list items.
+  // Search for the list items.
   const listItems = screen.getAllByRole("listitem");
   expect(listItems.length).toBe(2);
 
@@ -25,7 +25,7 @@ test("renders a list of unbalanced trees with IDs and numbers", () => {
   expect(firstItemText).toMatch(/ID:\s*1/);
   expect(firstItemText).toMatch(/5,2,7/);
 
-  // Check the second list item for the expected content.
+  // Check the second list item for expected content.
   const secondItemText = listItems[1].textContent;
   expect(secondItemText).toMatch(/ID:\s*2/);
   expect(secondItemText).toMatch(/1,3,8/);
