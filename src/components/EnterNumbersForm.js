@@ -5,8 +5,9 @@ function EnterNumbersForm({ onSubmitNumbers }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (onSubmitNumbers) {
+    if (onSubmitNumbers && numbers.trim() !== "") {
       onSubmitNumbers(numbers);
+      setNumbers("");
     }
   };
 

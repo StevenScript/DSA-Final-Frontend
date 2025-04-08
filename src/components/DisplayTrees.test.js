@@ -1,5 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import DisplayTrees from "./DisplayTrees";
+import React from "react";
 
 test("renders a list of trees if provided", () => {
   const mockTrees = [
