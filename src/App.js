@@ -1,15 +1,11 @@
 import "./App.css";
 import React, { useEffect, useState } from "react";
-import EnterNumbersForm from "./components/EnterNumbersForm"; // already exists from before
+import EnterNumbersForm from "./components/EnterNumbersForm";
 import DisplayUnbalancedTrees from "./components/DisplayUnbalancedTrees";
 import BalanceForm from "./components/BalanceForm";
 import DisplayBalancedTrees from "./components/DisplayBalancedTrees";
-import {
-  createTree,
-  fetchUnbalancedTrees,
-  balanceTree,
-  fetchBalancedTrees,
-} from "./api/api";
+
+import * as api from "./api/api";
 
 function App() {
   const [unbalancedTrees, setUnbalancedTrees] = useState([]);
@@ -17,22 +13,36 @@ function App() {
 
   // Load unbalanced and balanced trees on mount
   useEffect(() => {
-    fetchUnbalancedTrees().then((data) => setUnbalancedTrees(data));
-    fetchBalancedTrees().then((data) => setBalancedTrees(data));
+    api
+      .fetchUnbalancedTrees()
+      .then((data) => setUnbalancedTrees(data))
+      .catch((error) => {
+        console.error("Error fetching unbalanced trees:", error);
+        setUnbalancedTrees([]);
+      });
+    api
+      .fetchBalancedTrees()
+      .then((data) => setBalancedTrees(data))
+      .catch((error) => {
+        console.error("Error fetching balanced trees:", error);
+        setBalancedTrees([]);
+      });
   }, []);
 
-  // Handle new unbalanced BST creation
+  // Handle unbalanced BST creation
   const handleCreateTree = async (numbers) => {
-    const newTree = await createTree(numbers);
-    // Add to the front of unbalanced trees
-    setUnbalancedTrees((prev) => [newTree, ...prev]);
+    try {
+      const newTree = await api.createTree(numbers);
+      setUnbalancedTrees((prev) => [newTree, ...prev]);
+    } catch (error) {
+      console.error("Error creating tree:", error);
+    }
   };
 
   // Handle balancing an existing BST given its ID
   const handleBalanceBST = async (treeId) => {
     try {
-      const newBalancedTree = await balanceTree(treeId);
-      // Add to the balanced trees list
+      const newBalancedTree = await api.balanceTree(treeId);
       setBalancedTrees((prev) => [newBalancedTree, ...prev]);
     } catch (error) {
       console.error("Error balancing tree:", error);
@@ -42,16 +52,9 @@ function App() {
   return (
     <div>
       <h1>Binary Search Tree App</h1>
-      {/* Form to create a new unbalanced BST */}
       <EnterNumbersForm onSubmitNumbers={handleCreateTree} />
-
-      {/* Display all unbalanced BSTs */}
       <DisplayUnbalancedTrees trees={unbalancedTrees} />
-
-      {/* Form to balance a selected BST */}
       <BalanceForm onBalance={handleBalanceBST} />
-
-      {/* Display all balanced BSTs */}
       <DisplayBalancedTrees balancedTrees={balancedTrees} />
     </div>
   );
