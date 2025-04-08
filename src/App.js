@@ -1,10 +1,6 @@
 import "./App.css";
 import React, { useEffect, useState } from "react";
-import EnterNumbersForm from "./components/EnterNumbersForm";
-import DisplayUnbalancedTrees from "./components/DisplayUnbalancedTrees";
-import BalanceForm from "./components/BalanceForm";
-import DisplayBalancedTrees from "./components/DisplayBalancedTrees";
-
+import HomePage from "./pages/HomePage"; // Our new composite layout component
 import * as api from "./api/api";
 
 function App() {
@@ -46,8 +42,8 @@ function App() {
     }
   };
 
-  // Handle balancing an existing BST given its ID
-  const handleBalanceBST = async (treeId) => {
+  // Handle balancing an existing BST by its ID
+  const handleBalanceTree = async (treeId) => {
     try {
       const newBalancedTree = await api.balanceTree(treeId);
       setBalancedTrees((prev) => [newBalancedTree, ...prev]);
@@ -62,7 +58,6 @@ function App() {
 
   return (
     <div>
-      <h1>Binary Search Tree App</h1>
       {globalNotification && (
         <div
           style={{
@@ -73,10 +68,13 @@ function App() {
           {globalNotification}
         </div>
       )}
-      <EnterNumbersForm onSubmitNumbers={handleCreateTree} />
-      <DisplayUnbalancedTrees trees={unbalancedTrees} />
-      <BalanceForm onBalance={handleBalanceBST} />
-      <DisplayBalancedTrees balancedTrees={balancedTrees} />
+      {/* HomePage composes the header and two-column layout */}
+      <HomePage
+        onCreateTree={handleCreateTree}
+        unbalancedTrees={unbalancedTrees}
+        onBalanceTree={handleBalanceTree}
+        balancedTrees={balancedTrees}
+      />
     </div>
   );
 }
