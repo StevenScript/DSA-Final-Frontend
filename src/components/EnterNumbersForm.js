@@ -4,6 +4,7 @@ function EnterNumbersForm({ onSubmitNumbers }) {
   const [numbers, setNumbers] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const numbersRegex = /^\s*\d+(\s*,\s*\d+)*\s*$/;
 
@@ -18,6 +19,7 @@ function EnterNumbersForm({ onSubmitNumbers }) {
       return;
     }
     setError("");
+    setLoading(true);
     try {
       await onSubmitNumbers(numbers);
       setSuccess("BST created successfully!");
@@ -27,6 +29,8 @@ function EnterNumbersForm({ onSubmitNumbers }) {
     } catch (err) {
       setError("There was an error creating the BST.");
       setSuccess("");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -38,9 +42,13 @@ function EnterNumbersForm({ onSubmitNumbers }) {
         value={numbers}
         onChange={(e) => setNumbers(e.target.value)}
       />
-      <button type="submit">Submit</button>
-      {error && <div style={{ color: "red" }}>{error}</div>}
-      {success && <div style={{ color: "green" }}>{success}</div>}
+      <button type="submit" disabled={loading}>
+        {loading ? "Creating..." : "Submit"}
+      </button>
+      {error && <div style={{ color: "red", marginTop: "0.5em" }}>{error}</div>}
+      {success && (
+        <div style={{ color: "green", marginTop: "0.5em" }}>{success}</div>
+      )}
     </form>
   );
 }

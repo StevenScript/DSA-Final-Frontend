@@ -4,6 +4,7 @@ function BalanceForm({ onBalance }) {
   const [treeId, setTreeId] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -15,6 +16,7 @@ function BalanceForm({ onBalance }) {
       return;
     }
     setError("");
+    setLoading(true);
     try {
       await onBalance(id);
       setSuccess("BST balanced successfully!");
@@ -24,6 +26,8 @@ function BalanceForm({ onBalance }) {
     } catch (err) {
       setError("There was an error balancing the BST.");
       setSuccess("");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -38,9 +42,13 @@ function BalanceForm({ onBalance }) {
           onChange={(e) => setTreeId(e.target.value)}
         />
       </label>
-      <button type="submit">Balance BST</button>
-      {error && <div style={{ color: "red" }}>{error}</div>}
-      {success && <div style={{ color: "green" }}>{success}</div>}
+      <button type="submit" disabled={loading}>
+        {loading ? "Balancing..." : "Balance BST"}
+      </button>
+      {error && <div style={{ color: "red", marginTop: "0.5em" }}>{error}</div>}
+      {success && (
+        <div style={{ color: "green", marginTop: "0.5em" }}>{success}</div>
+      )}
     </form>
   );
 }
