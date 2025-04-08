@@ -11,3 +11,13 @@ export async function fetchAllTrees() {
   const response = await axios.get(`${BASE_URL}/trees`);
   return response.data; // returns an array of TreeRecords
 }
+
+export async function balanceTree(treeId) {
+  const response = await axios.post(`${BASE_URL}/balance/${treeId}`);
+  return response.data;
+}
+
+export async function fetchBalancedTrees() {
+  const response = await axios.get(`${BASE_URL}/balanced`);
+  return response.data;
+}
