@@ -1,27 +1,36 @@
 import React from "react";
-import { render, screen, fireEvent } from "@testing-library/react";
+import {
+  render,
+  screen,
+  fireEvent,
+  act,
+  waitFor,
+} from "@testing-library/react";
 import EnterNumbersForm from "./EnterNumbersForm";
 
 test("renders an input and a submit button", () => {
   render(<EnterNumbersForm />);
   const inputElement = screen.getByPlaceholderText(/enter numbers/i);
   const buttonElement = screen.getByText(/submit/i);
-
   expect(inputElement).toBeInTheDocument();
   expect(buttonElement).toBeInTheDocument();
 });
 
-test("calls onSubmitNumbers when form is submitted", () => {
-  const handleSubmit = jest.fn();
-  render(<EnterNumbersForm onSubmitNumbers={handleSubmit} />);
+test("calls onSubmitNumbers when form is submitted", async () => {
+  // Define the mock callback within the test so it is in scope.
+  const onSubmitMock = jest.fn();
+
+  render(<EnterNumbersForm onSubmitNumbers={onSubmitMock} />);
 
   const inputElement = screen.getByPlaceholderText(/enter numbers/i);
   const buttonElement = screen.getByText(/submit/i);
 
-  // Type into the input
-  fireEvent.change(inputElement, { target: { value: "5,2,7" } });
-  fireEvent.click(buttonElement);
+  // Wrap the fireEvent calls in act to capture all state updates.
+  await act(async () => {
+    fireEvent.change(inputElement, { target: { value: "5,2,7" } });
+    fireEvent.click(buttonElement);
+  });
 
-  // Expect "5,2,7"
-  expect(handleSubmit).toHaveBeenCalledWith("5,2,7");
+  // Wait for any asynchronous update and verify onSubmitMock was called with "5,2,7"
+  await waitFor(() => expect(onSubmitMock).toHaveBeenCalledWith("5,2,7"));
 });
