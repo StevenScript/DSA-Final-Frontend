@@ -2,9 +2,11 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 1rem;
+  background-color: rgb(0, 3, 209);
 }
 
 .mainContent {
   display: flex;
   gap: 1rem;
+  color: rgb(0, 0, 0);
 }
