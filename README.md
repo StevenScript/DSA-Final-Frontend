@@ -21,6 +21,8 @@ Key features include:
 - **User feedback:** Validation and notification messages for a better user experience.
 - **Seamless API integration:** Interacts with a backend API to store and retrieve BST records.
 
+![Screenshot](BSTproof.jpg)
+
 ## Getting Started
 
 ### Prerequisites
