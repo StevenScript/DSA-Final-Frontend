@@ -1,70 +1,120 @@
-# Getting Started with Create React App
+# DSA Final Project - Binary Search Tree Application
+# FRONT END
+### NAME - Steven Norris
+### DATE - April 9th 2025
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## About this repository
 
-## Available Scripts
+**DSA Final Frontend** is a React-based user interface that complements the DSA Final Backend application.  
+It provides an intuitive, responsive interface to create, view, and balance Binary Search Trees (BSTs).
 
-In the project directory, you can run:
+## Overview
 
-### `npm start`
+This project was built to demonstrate a full-stack application for managing BSTs. The React UI lets users:
+- **Create BSTs:** Enter a comma-separated list of numbers to form an unbalanced BST.
+- **View BSTs:** See a list of unbalanced BST records.
+- **Balance BSTs:** Select an existing BST by its ID to trigger balancing, then view the balanced result.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Key features include:
+- **Three-part layout:** A header with instructions, and two side-by-side columns for unbalanced and balanced BST operations.
+- **Component-based styling:** Uses CSS Modules for encapsulated, scalable, and maintainable styles.
+- **User feedback:** Validation and notification messages for a better user experience.
+- **Seamless API integration:** Interacts with a backend API to store and retrieve BST records.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Getting Started
 
-### `npm test`
+### Prerequisites
+- [Node.js](https://nodejs.org/) (version 14 or later recommended)
+- [npm](https://www.npmjs.com/) (comes with Node.js)
+- A modern web browser
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Installation
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/your-username/dsa-final-frontend.git
+   cd dsa-final-frontend
+   ```
+2. **Install dependencies:**
+   ```bash
+   npm install
+   ```
 
-### `npm run build`
+### Running Locally
+- **Development Server:**  
+  Start the app locally with:
+  ```bash
+  npm start
+  ```  
+  The UI will be available at [http://localhost:3000](http://localhost:3000).
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- **Testing:**  
+  Run tests using:
+  ```bash
+  npm test
+  ```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Usage Examples
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- **Creating a BST:**  
+  Enter a comma-separated list of numbers (e.g., `5,2,7`) in the left-side form.  
+  If valid, the app creates a BST, displays it in the unbalanced trees list, and shows a success notification.
 
-### `npm run eject`
+- **Balancing a BST:**  
+  Enter the ID of a stored BST in the right-side form and submit.  
+  The app calls the backend API to balance the BST, displays the balanced tree in the list, and notifies the user.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## API Documentation
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+The frontend interacts with a backend REST API for BST operations. Key endpoints include:
+- **POST /api/trees:** Create an unbalanced BST (expects `{ "numbers": "5,2,7" }`).
+- **GET /api/trees:** Retrieve all unbalanced BST records.
+- **POST /api/balance/{treeId}:** Balance an existing BST.
+- **GET /api/balanced:** Retrieve all balanced BST records.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+*(See the backend repository for full API details.)*
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Project Structure
 
-## Learn More
+```
+dsa-final-frontend/
+├── src/
+│   ├── api/
+│   │   ├── api.js                  # API interaction functions
+│   │   └── __mocks__/api.js       # Manual mock for API (used in tests)
+│   ├── components/
+│   │   ├── EnterNumbersForm.js            # Form to create a BST
+│   │   ├── DisplayUnbalancedTrees.js      # Displays unbalanced BST records
+│   │   ├── BalanceForm.js                 # Form to balance a BST by ID
+│   │   ├── DisplayBalancedTrees.js       # Displays balanced BST records
+│   │   ├── UnbalancedBSTSection.js       # Container for unbalanced BST input and display
+│   │   ├── UnbalancedBSTSection.module.css
+│   │   ├── BalancedBSTSection.js         # Container for balanced BST input and display
+│   │   └── BalancedBSTSection.module.css
+│   ├── pages/
+│   │   ├── HomePage.js                   # Composite layout with header and two-column content
+│   │   └── HomePage.module.css
+│   ├── App.js                            # Root component integrating the HomePage
+│   └── App.css                           # Global styles
+├── public/
+│   └── index.html
+└── README.md
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Configuration
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- **Environment Variables:**  
+  Set `REACT_APP_API_URL` (if needed) in a `.env` file to point to your backend API URL.
+- **Styles:**  
+  The project uses CSS Modules (e.g., `HomePage.module.css`) for component-specific styling to avoid conflicts.
 
-### Code Splitting
+## Testing Instructions
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- **Unit & Integration Tests:**  
+  Run tests with:
+  ```bash
+  npm test
+  ```
+  This project uses Jest and React Testing Library, with manual mocks for API calls to ensure tests run in isolation.
 
-### Analyzing the Bundle Size
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
 
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
