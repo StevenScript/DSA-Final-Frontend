@@ -53,7 +53,7 @@ function EnterNumbersForm({ onSubmitNumbers }) {
         onChange={(e) => setNumbers(e.target.value)}
       />
       <button type="submit" disabled={loading}>
-        {loading ? "Creating..." : "Submit"}
+        {loading ? "Creating..." : "Create BST"}
       </button>
       {error && <div style={{ color: "red", marginTop: "0.5em" }}>{error}</div>}
       {success && (

@@ -14,7 +14,9 @@ import styles from "./BalancedBSTSection.module.css";
 function BalancedBSTSection({ onBalance, balancedTrees }) {
   return (
     <section className={styles.section}>
-      <h2>Balanced BST</h2>
+      <center>
+        <h2>Create A Balanced BST</h2>
+      </center>
       <BalanceForm onBalance={onBalance} />
       <DisplayBalancedTrees balancedTrees={balancedTrees} />
     </section>

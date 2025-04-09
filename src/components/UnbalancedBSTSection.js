@@ -14,8 +14,10 @@ import styles from "./UnbalancedBSTSection.module.css";
 function UnbalancedBSTSection({ onSubmitNumbers, trees }) {
   return (
     <section className={styles.section}>
-      <h2>Unbalanced BST</h2>
-      <EnterNumbersForm onSubmitNumbers={onSubmitNumbers} />
+      <center>
+        <h2>Create An Unbalanced BST</h2>
+        <EnterNumbersForm onSubmitNumbers={onSubmitNumbers} />
+      </center>
       <DisplayUnbalancedTrees trees={trees} />
     </section>
   );

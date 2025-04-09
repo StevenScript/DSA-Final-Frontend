@@ -43,22 +43,23 @@ function BalanceForm({ onBalance }) {
 
   return (
     <form onSubmit={handleSubmit}>
-      <label>
-        Enter BST ID to Balance:
+      <center>
         <input
           type="number"
           placeholder="e.g., 1"
           value={treeId}
           onChange={(e) => setTreeId(e.target.value)}
         />
-      </label>
-      <button type="submit" disabled={loading}>
-        {loading ? "Balancing..." : "Balance BST"}
-      </button>
-      {error && <div style={{ color: "red", marginTop: "0.5em" }}>{error}</div>}
-      {success && (
-        <div style={{ color: "green", marginTop: "0.5em" }}>{success}</div>
-      )}
+        <button type="submit" disabled={loading}>
+          {loading ? "Balancing..." : "Balance BST"}
+        </button>
+        {error && (
+          <div style={{ color: "red", marginTop: "0.5em" }}>{error}</div>
+        )}
+        {success && (
+          <div style={{ color: "green", marginTop: "0.5em" }}>{success}</div>
+        )}
+      </center>
     </form>
   );
 }
