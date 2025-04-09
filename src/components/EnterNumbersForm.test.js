@@ -16,7 +16,7 @@ import EnterNumbersForm from "./EnterNumbersForm";
 test("renders an input and a submit button", () => {
   render(<EnterNumbersForm />);
   const inputElement = screen.getByPlaceholderText(/enter numbers/i);
-  const buttonElement = screen.getByText(/submit/i);
+  const buttonElement = screen.getByText(/create bst/i);
   expect(inputElement).toBeInTheDocument();
   expect(buttonElement).toBeInTheDocument();
 });
@@ -28,7 +28,7 @@ test("calls onSubmitNumbers when form is submitted", async () => {
   render(<EnterNumbersForm onSubmitNumbers={onSubmitMock} />);
 
   const inputElement = screen.getByPlaceholderText(/enter numbers/i);
-  const buttonElement = screen.getByText(/submit/i);
+  const buttonElement = screen.getByText(/create bst/i);
 
   // Use act to wrap events that trigger state updates.
   await act(async () => {
