@@ -1,16 +1,24 @@
 import React, { useState } from "react";
 
+/**
+ * Form component for submitting a comma-separated string of numbers to create a BST.
+ *
+ * @param {Function} onSubmitNumbers - Callback function called with a valid input string.
+ * @returns {JSX.Element} A form that validates input, shows feedback messages, and calls onSubmitNumbers.
+ */
 function EnterNumbersForm({ onSubmitNumbers }) {
   const [numbers, setNumbers] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [loading, setLoading] = useState(false);
 
+  // Regex to validate a comma-separated list of one or more numbers.
   const numbersRegex = /^\s*\d+(\s*,\s*\d+)*\s*$/;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // Validate the input field
+
+    // Validate input; if invalid, show an error and abort submission.
     if (!numbersRegex.test(numbers)) {
       setError(
         "Please enter a valid comma-separated list of numbers (e.g., 5,2,7)."
@@ -18,9 +26,11 @@ function EnterNumbersForm({ onSubmitNumbers }) {
       setSuccess("");
       return;
     }
+
     setError("");
     setLoading(true);
     try {
+      // Call the parent-provided callback to create the BST.
       await onSubmitNumbers(numbers);
       setSuccess("BST created successfully!");
       setNumbers("");
