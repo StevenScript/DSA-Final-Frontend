@@ -1,6 +1,12 @@
 import React from "react";
 import styles from "./Header.module.css";
 
+/**
+ * Header component displays the title and instructions for the BST application.
+ * Explains to the user how to create an unbalanced BST and balance a selected BST.
+ *
+ * @returns {JSX.Element} A header with a title and a descriptive paragraph.
+ */
 function Header() {
   return (
     <header className={styles.header}>

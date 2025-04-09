@@ -2,6 +2,10 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import DisplayBalancedTrees from "./DisplayBalancedTrees";
 
+/**
+ * Tests the DisplayBalancedTrees component to ensure that the balanced tree records
+ * are rendered correctly.
+ */
 test("renders balanced trees with IDs and JSON", () => {
   const mockBalancedTrees = [
     {
@@ -20,17 +24,17 @@ test("renders balanced trees with IDs and JSON", () => {
 
   render(<DisplayBalancedTrees balancedTrees={mockBalancedTrees} />);
 
-  // Get all list items, since each tree is rendered in an <li>
+  // Verify that two list items are rendered
   const listItems = screen.getAllByRole("listitem");
   expect(listItems.length).toBe(2);
 
-  // For the first list item, check that it includes "Balanced ID:" and "1" flexibly
+  // Check that the first item includes expected content
   expect(listItems[0].textContent).toMatch(/Balanced ID:\s*1/);
   expect(listItems[0].textContent).toMatch(/Original BST ID:\s*5/);
   expect(listItems[0].textContent).toMatch(/1,2,3,4,5/);
   expect(listItems[0].textContent).toMatch(/"value":3/);
 
-  // For the second list item, check similarly
+  // Check that the second item includes expected content
   expect(listItems[1].textContent).toMatch(/Balanced ID:\s*2/);
   expect(listItems[1].textContent).toMatch(/Original BST ID:\s*7/);
   expect(listItems[1].textContent).toMatch(/7,8,9/);

@@ -1,15 +1,25 @@
 import React, { useState } from "react";
 
+/**
+ * BalanceForm provides a form for users to submit an unbalanced BST's ID for balancing.
+ *
+ * @param {Function} onBalance - Callback to initiate balancing for the given BST ID.
+ * @returns {JSX.Element} A form with input validation and user feedback for balancing.
+ */
 function BalanceForm({ onBalance }) {
   const [treeId, setTreeId] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [loading, setLoading] = useState(false);
 
+  /**
+   * handleSubmit validates the input and invokes onBalance with the BST ID.
+   * Provides visual feedback for success or error and manages loading state.
+   */
   const handleSubmit = async (e) => {
     e.preventDefault();
     const id = Number(treeId);
-    // Validate that treeId is a positive number
+    // Ensure a valid, positive number is provided.
     if (!treeId || isNaN(id) || id <= 0) {
       setError("Please enter a valid BST ID (a positive number).");
       setSuccess("");
@@ -21,7 +31,7 @@ function BalanceForm({ onBalance }) {
       await onBalance(id);
       setSuccess("BST balanced successfully!");
       setTreeId("");
-      // Clear success message after 3 seconds
+      // Remove success message after 3 seconds.
       setTimeout(() => setSuccess(""), 3000);
     } catch (err) {
       setError("There was an error balancing the BST.");

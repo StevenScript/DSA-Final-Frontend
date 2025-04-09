@@ -1,7 +1,9 @@
-// This file mocks the API functions used by App.js.
-// It uses named exports so that when App.js does a namespace import,
-// these functions are provided.
+// This manual mock provides stub implementations for API calls used by the frontend.
 
+/**
+ * Mocks creating a new BST record by returning a resolved promise
+ * with a pre-defined TreeRecord.
+ */
 export async function createTree(numbers) {
   return Promise.resolve({
     id: 1,
@@ -11,10 +13,18 @@ export async function createTree(numbers) {
   });
 }
 
+/**
+ * Mocks fetching unbalanced BST records.
+ * Returns an empty array for simplicity.
+ */
 export async function fetchUnbalancedTrees() {
   return Promise.resolve([]); // return an empty array
 }
 
+/**
+ * Mocks balancing a BST by returning a resolved promise with a pre-defined
+ * BalancedTreeRecord.
+ */
 export async function balanceTree(treeId) {
   return Promise.resolve({
     id: 100,
@@ -24,6 +34,10 @@ export async function balanceTree(treeId) {
   });
 }
 
+/**
+ * Mocks fetching balanced BST records.
+ * Returns an empty array for simplicity.
+ */
 export async function fetchBalancedTrees() {
   return Promise.resolve([]); // return an empty array
 }
